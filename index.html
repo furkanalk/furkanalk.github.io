@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>furkanalk</title>
+  <link rel="shortcut icon" href="png/purple_plane.png" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Nunito:800,900&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/ad9cb0368b.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body class="bg-[#fafafa] text-[#333] mx-auto flex flex-col justify-between font-poppins">
+  <div id="page-wrapper">
+    <div id="cursor-circle"></div>
+    <div id="airplane">
+      <img src="png/purple_plane.png" alt="Airplane" class="w-10 h-8" />
+    </div>
+    <div id="plane-shield"></div>
+
+    <!-- Game Over Overlay -->
+    <div id="game-overlay" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 hidden
+			 flex flex-col items-center justify-center text-white" style="z-index:12000;">
+      <div class="bg-[#222] p-6 rounded-md text-center">
+        <h2 class="text-2xl font-bold mb-4">Game Over</h2>
+        <p class="mb-4 text-xl">Final Score: <span id="final-score">0</span></p>
+        <p class="mb-4 text-xl">Time: <span id="final-time">00:00</span></p>
+        <button id="play-again-btn" class="bg-green-600 px-4 py-2 text-xl mr-4">Play Again</button>
+        <button id="exit-game-btn" class="bg-red-600 px-4 py-2 text-xl">Exit</button>
+      </div>
+    </div>
+
+    <!-- Ana UI Panel -->
+    <section id="ui-panel"
+      class="fixed top-0 left-0 w-full z-50 p-3 box-border h-20 flex justify-between items-center hidden">
+      <!-- Left -->
+      <div class="flex flex-1 justify-evenly items-center">
+        <div id="level-label" class="font-bold text-green-600 text-2xl" style="width: 170px; text-align: right;">
+          LEVEL 1
+        </div>
+        <div id="timer-display" class="font-bold text-blue-600 text-2xl">
+          00:00
+        </div>
+        <div id="score-display" class="text-2xl text-violet-800 font-bold" style="width: 120px; text-align: right;">
+          Score: <span id="score-value">0</span>
+        </div>
+      </div>
+
+
+      <!-- Middle -->
+      <div class="flex flex-1 flex-col items-center justify-center">
+        <div id="purple-bar-outer" class="w-96 h-2 bg-gray-300 mb-2">
+          <div id="purple-bar-inner" class="h-2 w-0 bg-purple-600 transition-all"></div>
+        </div>
+        <div id="purple-orb-container" class="flex gap-1"></div>
+        <div id="max-ultimate-label" class="text-purple-600 font-bold text-sm mt-2">
+          MAX ULTIMATE CHARGES
+        </div>
+      </div>
+
+      <!-- Right -->
+      <div class="flex flex-1 justify-evenly items-center">
+        <div id="heart-container" class="flex gap-1">
+          <img src="png/placeholder/heart.png" alt="Heart Placeholder" class="w-6 h-6 opacity-50">
+          <img src="png/placeholder/heart.png" alt="Heart Placeholder" class="w-6 h-6 opacity-50">
+          <img src="png/placeholder/heart.png" alt="Heart Placeholder" class="w-6 h-6 opacity-50">
+        </div>
+        <div id="flare-container" class="flex gap-1">
+          <img src="png/placeholder/flare.png" alt="Flare Placeholder" class="w-6 h-6 opacity-50">
+          <img src="png/placeholder/flare.png" alt="Flare Placeholder" class="w-6 h-6 opacity-50">
+          <img src="png/placeholder/flare.png" alt="Flare Placeholder" class="w-6 h-6 opacity-50">
+        </div>
+        <div id="shield-placeholder-container" class="flex gap-1">
+          <img src="png/placeholder/shield.png" alt="Shield Placeholder" class="w-12 h-12 opacity-50">
+        </div>
+        <div id="shield-div" class="flex gap-1 hidden">
+          <div id="shield-timer-wrapper"
+            class="w-12 h-12 border-4 border-purple-500/60 rounded-full text-center flex justify-center">
+            <span id="shield-timer-label"
+              class="flex items-center justify-center h-full text-xl text-purple-800">10</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="countdown-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%;
+		 background:rgba(0,0,0,0.5); color:#fff; display:none;
+		 align-items:center; justify-content:center; z-index:12000; font-size:4rem;">
+      <span id="countdown-label"></span>
+    </div>
+
+    <div>
+      <!-- Header -->
+      <div id="header-name-ldm" class="flex w-full items-center justify-between mt-4">
+        <h1 id="name" class="font-bold text-2xl animate-name">furkanalk</h1>
+        <span id="switch-ldm-logo">
+          <div id="switch-container">
+            <img src="images/moon.svg" alt="Switch Mode"
+              class="w-[2em] h-[2em] cursor-pointer animate-ldIcon fixed top-[1.9vw] transition-all" />
+          </div>
+        </span>
+      </div>
+
+      <!-- Go Back Button -->
+      <div id="go-back-button"
+        class="opacity-80 font-mono outline-none bg-[#333] text-[#fafafa] relative -top-8 p-4 border-none hidden text-[0.8em] text-center">
+        <i class="fas fa-chevron-left"></i> Menu
+      </div>
+
+      <!-- About Me Intro Section -->
+      <section id="about-me-intro-section" class="section block text-[0.8em] w-[400px] opacity-80 mb-8">
+        <p class="mb-8">
+          I am a Software Engineer specializing in Autonomous Systems, ...
+        </p>
+        <a href="mailto:furkanalkilic@outlook.com"
+          class="border-2 border-[#333] text-[#fff] bg-purple-500 py-2 px-6 transition-all duration-400 hover:bg-purple-700 hover:text-[#fafafa] no-underline">
+          Get in touch
+        </a>
+
+        <!-- Face-->
+        <div id="face-container" class="relative w-64 mx-auto mt-10">
+          <div class="eye absolute" id="left-eye" style="top: 35%; left: 30%;">
+            <div class="pupil" id="left-pupil"></div>
+          </div>
+          <div class="eye absolute" id="right-eye" style="top: 35%; left: 65%;">
+            <div class="pupil" id="right-pupil"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Menu -->
+      <header id="menu" class="flex flex-row max-w-[50%] text-gray-500 animate-menu mt-40 fixed top-[1vw] right-[15vw]">
+        <p id="about-me" class="mr-8">
+          <a href="#about-me-section" class="font-mono text-sm border-2 border-[#ccc] px-2 py-1 shadow-[5px_5px_0px_2px_#ccc] no-underline
+					  hover:border-[#333] hover:text-[#000] hover:bg-[#ccc] transition-all duration-400">
+            About Me
+          </a>
+        </p>
+        <p id="skills" class="mr-8">
+          <a href="#skills-section" class="font-mono text-sm border-2 border-[#ccc] px-2 py-1 shadow-[5px_5px_0px_2px_#ccc] no-underline
+					  hover:border-[#333] hover:text-[#000] hover:bg-[#ccc] transition-all duration-400">
+            Skills
+          </a>
+        </p>
+        <p id="projects" class="mr-8">
+          <a href="#projects-section" class="font-mono text-sm border-2 border-[#ccc] px-2 py-1 shadow-[5px_5px_0px_2px_#ccc] no-underline
+					  hover:border-[#333] hover:text-[#000] hover:bg-[#ccc] transition-all duration-400">
+            Projects
+          </a>
+        </p>
+        <!-- Mini-Game Link -->
+        <p id="mini-game" class="mr-8">
+          <a href="#" class="font-mono text-sm border-2 border-[#ccc] px-2 py-1 shadow-[5px_5px_0px_2px_#ccc] no-underline
+					  hover:border-[#333] hover:text-[#000] hover:bg-[#ccc] transition-all duration-400">
+            Mini-Game
+          </a>
+        </p>
+      </header>
+    </div>
+
+    <main class="mt-20">
+      <!-- About Me Section -->
+      <section id="about-me-section" class="section animate-section">
+        <h2 class="text-2xl font-bold mb-4">About me</h2>
+        <p class="mb-4">
+          I am a Software Engineer specializing in Autonomous Systems, API Development, and Full-Stack Web Technologies.
+          Passionate about UAV software, ArduPilot, and MAVLink. Currently working on Teknofest UAV & SİHA Competitions
+          as a Software Developer.
+          I am also interested in AI, Computer Vision, and Embedded Systems.
+          <a href="mailto:furkanalkilic@outlook.com"
+            class="inline-block p-2 text-sm text-[#fff] bg-purple-500 shadow-[0_0_3px_1px_#ccc] mt-4 opacity-70 hover:opacity-100 hover:shadow-none hover:border-2 hover:border-[#333] transition-all duration-400 no-underline">
+            Hire me
+          </a>
+        </p>
+      </section>
+
+      <!-- Skills Section -->
+      <section id="skills-section" class="section animate-section pb-10">
+        <div id="projects-wrapper">
+          <h2 class="text-2xl font-bold mb-4">Skills</h2>
+          <article class="grid grid-cols-3 gap-8">
+
+            <!-- Programming Languages -->
+            <section class="p-4 border-2 border-[#ccc] shadow-[5px_5px_0px_2px_#ccc] whitespace-nowrap">
+              <h4 class="flex items-center text-lg font-bold mb-2">
+                Programming Languages
+                <img class="ml-2" src="./images/programming.svg" alt="Programming" />
+              </h4>
+              <ul class="list-none ml-4">
+                <li class="flex items-center"><object type="image/svg+xml" data="images/c.svg" class="mr-2"></object> C
+                </li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/cpp.svg" class="mr-2"></object>
+                  C++</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/csharp.svg"
+                    class="mr-2"></object> C#</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/python.svg"
+                    class="mr-2"></object> Python</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/javascript.svg"
+                    class="mr-2"></object> JavaScript</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/lua.svg" class="mr-2"></object>
+                  Lua</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/bash.svg" class="mr-2"></object>
+                  Bash</li>
+              </ul>
+            </section>
+
+            <!-- Backend & API Development / Test / Security -->
+            <section class="p-4 border-2 border-[#ccc] shadow-[5px_5px_0px_2px_#ccc] whitespace-nowrap">
+              <h4 class="flex items-center text-lg font-bold mb-2">
+                Backend & API Development / Test / Security
+                <img class="ml-2" src="./images/backend.svg" alt="Backend" />
+              </h4>
+              <ul class="list-none ml-4">
+                <li class="flex items-center"><object type="image/svg+xml" data="images/django.svg"
+                    class="mr-2"></object> Django</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/dotnet.svg"
+                    class="mr-2"></object> .NET</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/strapi.svg"
+                    class="mr-2"></object> Strapi</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/kong.svg" class="mr-2"></object>
+                  Kong API Gateway</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/nginx.svg"
+                    class="mr-2"></object> Nginx</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/docker.svg"
+                    class="mr-2"></object> Docker</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/kubernetes.svg"
+                    class="mr-2"></object> Kubernetes</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/nginx.svg"
+                    class="mr-2"></object> Postman</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/docker.svg"
+                    class="mr-2"></object> Insomnia</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/kubernetes.svg"
+                    class="mr-2"></object> HTTPie</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/docker.svg"
+                    class="mr-2"></object> Mock Server</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/kubernetes.svg"
+                    class="mr-2"></object> Swagger Open API</li>
+              </ul>
+            </section>
+
+            <!-- Databases & Storage -->
+            <section class="p-4 border-2 border-[#ccc] shadow-[5px_5px_0px_2px_#ccc] whitespace-nowrap">
+              <h4 class="flex items-center text-lg font-bold mb-2">
+                Databases & Storage
+                <img class="ml-2" src="./images/database.svg" alt="Databases" />
+              </h4>
+              <ul class="list-none ml-4">
+                <li class="flex items-center"><object type="image/svg+xml" data="images/postgresql.svg"
+                    class="mr-2"></object> PostgreSQL</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/mysql.svg"
+                    class="mr-2"></object> MySQL</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/mongodb.svg"
+                    class="mr-2"></object> MS SQL</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/redis.svg"
+                    class="mr-2"></object> Redis</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/sqlite.svg"
+                    class="mr-2"></object> SQLite</li>
+              </ul>
+            </section>
+
+            <!-- Monitoring & Logging -->
+            <section class="p-4 border-2 border-[#ccc] shadow-[5px_5px_0px_2px_#ccc] whitespace-nowrap">
+              <h4 class="flex items-center text-lg font-bold mb-2">
+                Monitoring & Logging
+                <img class="ml-2" src="./images/frontend.svg" alt="Frontend" />
+              </h4>
+              <ul class="list-none ml-4">
+                <li class="flex items-center"><object type="image/svg+xml" data="images/react.svg"
+                    class="mr-2"></object> Prometheus</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/nextjs.svg"
+                    class="mr-2"></object> Grafana</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/tailwind.svg"
+                    class="mr-2"></object> OpenTelemetry</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/html5.svg"
+                    class="mr-2"></object> Loki</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/css3.svg" class="mr-2"></object>
+                  Netdata</li>
+              </ul>
+            </section>
+
+            <!-- Web & Frontend Development -->
+            <section class="p-4 border-2 border-[#ccc] shadow-[5px_5px_0px_2px_#ccc] whitespace-nowrap">
+              <h4 class="flex items-center text-lg font-bold mb-2">
+                Web & Frontend Development
+                <img class="ml-2" src="./images/frontend.svg" alt="Frontend" />
+              </h4>
+              <ul class="list-none ml-4">
+                <li class="flex items-center"><object type="image/svg+xml" data="images/react.svg"
+                    class="mr-2"></object> React</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/nextjs.svg"
+                    class="mr-2"></object> Next.js</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/tailwind.svg"
+                    class="mr-2"></object> Tailwind CSS</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/html5.svg"
+                    class="mr-2"></object> HTML</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/css3.svg" class="mr-2"></object>
+                  CSS3</li>
+              </ul>
+            </section>
+
+            <!-- Autonomous Systems -->
+            <section class="p-4 border-2 border-[#ccc] shadow-[5px_5px_0px_2px_#ccc] whitespace-nowrap">
+              <h4 class="flex items-center text-lg font-bold mb-2">
+                Autonomous Systems
+                <img class="ml-2" src="./images/frontend.svg" alt="Frontend" />
+              </h4>
+              <ul class="list-none ml-4">
+                <li class="flex items-center"><object type="image/svg+xml" data="images/react.svg"
+                    class="mr-2"></object> ArduPilot</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/nextjs.svg"
+                    class="mr-2"></object> MAVLink</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/tailwind.svg"
+                    class="mr-2"></object> ROS</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/html5.svg"
+                    class="mr-2"></object> Gazebo</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/css3.svg" class="mr-2"></object>
+                  Mission Planner</li>
+              </ul>
+            </section>
+
+            <!-- Object Recognition & Tracking -->
+            <section class="p-4 border-2 border-[#ccc] shadow-[5px_5px_0px_2px_#ccc] whitespace-nowrap">
+              <h4 class="flex items-center text-lg font-bold mb-2">
+                Object Recognition & Tracking
+                <img class="ml-2" src="./images/frontend.svg" alt="Frontend" />
+              </h4>
+              <ul class="list-none ml-4">
+                <li class="flex items-center"><object type="image/svg+xml" data="images/react.svg"
+                    class="mr-2"></object> Raspberry Pi</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/nextjs.svg"
+                    class="mr-2"></object> Roboflow</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/tailwind.svg"
+                    class="mr-2"></object> OpenCV</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/css3.svg" class="mr-2"></object>
+                  PyTorch</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/css3.svg" class="mr-2"></object>
+                  YOLO</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/css3.svg" class="mr-2"></object>
+                  TensorFlow</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/css3.svg" class="mr-2"></object>
+                  Ultralytics</li>
+              </ul>
+            </section>
+
+            <!-- Game Development & Modding -->
+            <section class="p-4 border-2 border-[#ccc] shadow-[5px_5px_0px_2px_#ccc] whitespace-nowrap">
+              <h4 class="flex items-center text-lg font-bold mb-2">
+                Game Development & Modding
+                <img class="ml-2" src="./images/game.svg" alt="Game Development" />
+              </h4>
+              <ul class="list-none ml-4">
+                <li class="flex items-center"><object type="image/svg+xml" data="images/goldsrc.svg"
+                    class="mr-2"></object> GoldSrc</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/amxmodx.svg"
+                    class="mr-2"></object> AMX Mod X</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/goldsrc.svg"
+                    class="mr-2"></object> Unity</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/amxmodx.svg"
+                    class="mr-2"></object> PyArcade</li>
+              </ul>
+            </section>
+
+            <!-- Game Development & Modding -->
+            <section class="p-4 border-2 border-[#ccc] shadow-[5px_5px_0px_2px_#ccc] whitespace-nowrap">
+              <h4 class="flex items-center text-lg font-bold mb-2">
+                Game Development & Modding
+                <img class="ml-2" src="./images/game.svg" alt="Game Development" />
+              </h4>
+              <ul class="list-none ml-4">
+                <li class="flex items-center"><object type="image/svg+xml" data="images/goldsrc.svg"
+                    class="mr-2"></object> Linux</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/amxmodx.svg"
+                    class="mr-2"></object> Ubuntu</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/goldsrc.svg"
+                    class="mr-2"></object> Windows</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/amxmodx.svg"
+                    class="mr-2"></object> VS Code</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/goldsrc.svg"
+                    class="mr-2"></object> IntelliJ IDEA</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/amxmodx.svg"
+                    class="mr-2"></object> JetBrains Fleet</li>
+              </ul>
+            </section>
+
+            <!-- Game Development & Modding -->
+            <section class="p-4 border-2 border-[#ccc] shadow-[5px_5px_0px_2px_#ccc] whitespace-nowrap">
+              <h4 class="flex items-center text-lg font-bold mb-2">
+                Game Development & Modding
+                <img class="ml-2" src="./images/game.svg" alt="Game Development" />
+              </h4>
+              <ul class="list-none ml-4">
+                <li class="flex items-center"><object type="image/svg+xml" data="images/goldsrc.svg"
+                    class="mr-2"></object> Adobe Photoshop</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/amxmodx.svg"
+                    class="mr-2"></object> Adobe Illustrator</li>
+                <li class="flex items-center"><object type="image/svg+xml" data="images/goldsrc.svg"
+                    class="mr-2"></object> DaVinci Resolve</li>
+              </ul>
+            </section>
+          </article>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section id="projects-section" class="section animate-section">
+        <div id="projects-wrapper" class="grid grid-cols-3 gap-12">
+          <div
+            class="flex flex-col items-stretch bg-[#fafafa] p-4 shadow-[0px_0px_0px_5px_#ccc,15px_15px_0px_5px_#ccc] hover:shadow-none transition-all duration-400">
+            <div class="flex flex-col justify-evenly pr-8">
+              <h3 class="text-xl font-bold mb-2">
+                <a href="https://kaytouki.com" target="_blank" class="hover:underline">Kaytouki.com</a>
+                <br />
+                <em class="text-sm font-normal">- Carpooling website</em>
+              </h3>
+              <div class="tags flex flex-col">
+                <span class="border text-center w-1/2 my-1">PHP</span>
+                <span class="border text-center w-1/2 my-1">HTML</span>
+                <span class="border text-center w-1/2 my-1">CSS</span>
+                <span class="border text-center w-1/2 my-1">JavaScript</span>
+                <span class="border text-center w-1/2 my-1">Mysql</span>
+              </div>
+            </div>
+            <img src="images/kaytouki.png" alt="Kaytouki"
+              class="w-[200px] h-[300px] p-4 m-4 opacity-80 shadow-[2px_2px_0px_4px_rgba(240,240,240,0.5)]" />
+          </div>
+          <div
+            class="flex flex-col items-stretch bg-[#fafafa] p-4 shadow-[0px_0px_0px_5px_#ccc,15px_15px_0px_5px_#ccc] hover:shadow-none transition-all duration-400">
+            <div class="flex flex-col justify-evenly pr-8">
+              <h3 class="text-xl font-bold mb-2">
+                <a href="https://logorain.com" target="_blank" class="hover:underline">Logorain.com</a>
+                <br />
+                <em class="text-sm font-normal">- Logos Generator</em>
+              </h3>
+              <div class="tags flex flex-col">
+                <span class="border text-center w-1/2 my-1">Python</span>
+                <span class="border text-center w-1/2 my-1">HTML</span>
+                <span class="border text-center w-1/2 my-1">CSS</span>
+                <span class="border text-center w-1/2 my-1">Django</span>
+                <span class="border text-center w-1/2 my-1">Javascript</span>
+              </div>
+            </div>
+            <img src="images/logorain.png" alt="Logorain"
+              class="w-[200px] h-[300px] p-4 m-4 opacity-80 shadow-[2px_2px_0px_4px_rgba(240,240,240,0.5)]" />
+          </div>
+        </div>
+      </section>
+
+       <!-- Links Section -->
+       <section class="section animate-section">
+        <h2 class="text-2xl font-bold mb-4">Links</h2>
+        <div class="grid grid-cols-2 w-1/2 mt-4 gap-4">
+          <a href="mailto:ziyadkader@gmail.com" class="flex items-center no-underline">
+            <i class="fas fa-envelope mr-2" onmouseover='displayDescriptionOnLinks("fa-envelope");'></i>
+            mail
+          </a>
+          <a href="https://www.linkedin.com/in/ziyadsk/" class="flex items-center no-underline">
+            <i class="fab fa-linkedin-in mr-2"></i>
+            linkedin
+          </a>
+          <a href="https://github.com/ziyadsk" class="flex items-center no-underline">
+            <i class="fab fa-github mr-2"></i>
+            github
+          </a>
+          <a href="https://stackoverflow.com/users/6744380/ziyadsk" class="flex items-center no-underline">
+            <i class="fab fa-stack-overflow mr-2"></i>
+            stackoverflow
+          </a>
+          <a href="https://www.facebook.com/Ziyad.abdelkader" class="flex items-center no-underline">
+            <i class="fab fa-facebook mr-2"></i>
+            facebook
+          </a>
+          <a href="https://twitter.com/SkZiyad" class="flex items-center no-underline">
+            <i class="fab fa-twitter mr-2"></i>
+            twitter
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+  <script src="js/index.js"></script>
+  <script src="js/debug.js"></script>
+  <script src="js/logic.js"></script>
+  <script src="js/plane.js"></script>
+  <!-- <script src="js/eye_tracking.js"></script> -->
+  <script src="js/flame.js"></script>
+  <script src="js/meteor.js"></script>
+  <script src="js/entities.js"></script>
+  <script src="js/spawn.js"></script>
+  <script src="js/mini_game.js"></script>
+</body>
+
+</html>
