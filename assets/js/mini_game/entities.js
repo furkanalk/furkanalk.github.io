@@ -6,35 +6,40 @@ function createEntityElement(type) {
 	let src;
 
 	if (type === "missile") {
-		src = "png/missile.png";
+		src = "assets/images/mini_game/final/missile.png";
 		img.setAttribute("data-type", "missile");
 		img.style.width = "35px";
 		img.style.height = "20px";
 		currentMissiles++;
 	} else if (type === "plane") {
-		const options = ["png/enemy_plane_one.png", "png/enemy_plane_two.png", "png/enemy_plane_three.png"];
+		const options = 
+		[
+			"assets/images/mini_game/final/enemy_plane_one.png", 
+			"assets/images/mini_game/final/enemy_plane_two.png", 
+			"assets/images/mini_game/final/enemy_plane_three.png"
+		];
 		src = options[Math.floor(Math.random() * options.length)];
 		img.setAttribute("data-type", "plane");
 		img.style.width = "50px";
 		img.style.height = "40px";
 		currentPlanes++;
 	} else if (type === "powerup") {
-		src = "png/sheild.png";
+		src = "assets/images/mini_game/final/sheild.png";
 		img.setAttribute("data-type", "powerup");
 		img.style.width = "32px";
 		img.style.height = "32px";
 	} else if (type === "heart") {
-		src = "png/heart.png";
+		src = "assets/images/mini_game/final/heart.png";
 		img.setAttribute("data-type", "heart");
 		img.style.width = "32px";
 		img.style.height = "32px";
 	} else if (type === "flare") {
-		src = "png/flare.png";
+		src = "assets/images/mini_game/final/flare.png";
 		img.setAttribute("data-type", "flare");
 		img.style.width = "32px";
 		img.style.height = "32px";
 	} else {
-		src = "svg/default.svg";
+		src = "assets/images/mini_game/svg/default.svg";
 	}
 
 	img.src = src;

@@ -209,10 +209,10 @@ function updateFlareUI() {
 
   flares.forEach((img, index) => {
     if (index < flareCount) {
-      img.src = 'png/flare.png';
+      img.src = 'assets/images/mini_game/final/flare.png';
       img.classList.remove('opacity-50');
     } else {
-      img.src = 'png/placeholder/flare.png';
+      img.src = 'assets/images/mini_game/placeholder/flare.png';
       img.classList.add('opacity-50');
     }
   });

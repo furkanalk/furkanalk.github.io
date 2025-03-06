@@ -126,10 +126,10 @@ function updateHeartDisplay() {
   const hearts = heartContainer.querySelectorAll('img');
   hearts.forEach((img, index) => {
     if (index < heartCount) {
-      img.src = 'png/heart.png';
+      img.src = 'assets/images/mini_game/final/heart.png';
       img.classList.remove('opacity-50');
     } else {
-      img.src = 'png/placeholder/heart.png';
+      img.src = 'assets/images/mini_game/placeholder/heart.png';
       img.classList.add('opacity-50');
     }
   });
@@ -517,7 +517,7 @@ function blinkRedCircle(plane, callback) {
 
 function createMissileFrom(x,y){
   const img=document.createElement("img");
-  img.src="png/missile.png";
+  img.src="assets/images/mini_game/final/missile.png";
   img.setAttribute("data-type","missile");
   img.style.position="fixed";
   img.style.pointerEvents="none";
