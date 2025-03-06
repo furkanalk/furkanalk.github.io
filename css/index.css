@@ -5,9 +5,9 @@ html, body, header, footer {
 }
 
 body {
-  margin: 0 auto;
+  margin: auto;
   max-width: 1200px;
-  padding: 0 1rem;
+  padding: auto;
   background: transparent;
 }
 
@@ -94,42 +94,15 @@ body {
   animation: flashpurple 1s;
 }
 
-@keyframes about-me-animation {
-  0% { transform: translateY(10em); opacity: 0; }
-  100% { opacity: 1; transform: translateY(-1em); }
-}
-@keyframes name {
-  0% { opacity: 0; transform: translateY(100em); }
-  50% { transform: translateY(-1em); opacity: 0.3; }
-  100% { opacity: 1; transform: translateY(0); }
-}
-@keyframes slogan {
-  0% { opacity: 0; transform: translateX(-100em); }
-  60% { font-size: 0.8em; }
-  100% { opacity: 1; transform: translateY(-2em); font-size: 1em; }
-}
 @keyframes menu {
   0% { opacity: 0; transform: translateY(100em); }
   50% { opacity: 0.2; transform: translateY(50em); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-@keyframes ldIcon {
-  0% { opacity: 0; transform: translateY(-100em); }
-  50% { opacity: 0.2; transform: translateY(-50em); }
   100% { opacity: 1; transform: translateY(0); }
 }
 @keyframes section {
   0% { opacity: 0; transform: translateY(20rem); }
   100% { transform: translateY(0); }
 }
-@keyframes skillSection {
-  0% { opacity: 0; transform: translateX(-100px); }
-  50% { transform: translateX(500px); }
-  100% { opacity: 1; transform: translateX(200px); }
-}
-.animate-about-me { animation: about-me-animation 1s ease-in forwards; }
-.animate-name { animation: name 1.7s ease-out; }
-.animate-slogan { animation: slogan 1.2s ease-in-out forwards; }
+
 .animate-menu { animation: menu 0.8s ease-out; }
-.animate-ldIcon { animation: ldIcon 1.5s; }
 .animate-section { animation: section 0.6s forwards; }

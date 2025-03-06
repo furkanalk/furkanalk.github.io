@@ -108,7 +108,7 @@
           </span> -->
         </div>
 
-        <!-- About Me Intro Section -->
+        <!-- Header section -->
         <section id="animate-menu"
           class="section mt-4 w-full max-w-4xl text-[0.9em] font-medium opacity-80 flex flex-wrap gap-4 justify-center">
 
@@ -144,15 +144,15 @@
         </section>
       </header>
     </div>
-    <main class="mt-20">
+    <main>
       <!-- About Me Section -->
-      <section id="about-me-section" class="section animate-section px-4 sm:px-8 md:px-16 lg:px-24">
+      <section id="about-me-section" class="section animate-section mt-5 px-4 sm:px-8 md:px-16 lg:px-24">
         <div class="flex justify-center w-full">
           <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center">About Me</h2>
         </div>
         <p
-          class="mb-4 py-5 border-2 border-[#ccc] px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 text-center shadow-[5px_5px_0px_2px_#ccc] transition-colors duration-500 ease-in-out bg-white hover:bg-violet-100 
-          max-w-2xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed">
+          class="mb-4 py-5 border-2 border-[#ccc] px-4 sm:px-6 md:px-8 lg:px-8 xl:px-8 text-center shadow-[5px_5px_0px_2px_#ccc] transition-colors duration-500 ease-in-out bg-white hover:bg-violet-100 
+          mx-auto text-sm sm:text-base md:text-lg leading-relaxed">
           I am a Software Engineer specializing in Autonomous Systems, API Development, and Full-Stack Web Technologies.
           Passionate about UAV software, ArduPilot, and MAVLink. Currently working on Teknofest UAV & SİHA Competitions
           as a Software Developer.
@@ -161,12 +161,12 @@
       </section>      
 
       <!-- Skills Section -->
-      <section id="skills-section" class="section animate-section pb-10 mt-10">
+      <section id="skills-section" class="section animate-section pb-10 mt-10 sm:justify-center sm:flex md:px-5">
         <div id="projects-wrapper border-b w-full">
           <div class="flex justify-center">
             <h2 class="text-2xl font-bold mb-4">Skills</h2>
           </div>
-          <article class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-8 flex justify-center">
+          <article class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-8 flex justify-center items-center text-center">
             <!-- Prog. Languages -->
             <section
               class="p-4 border-2 border-[#ccc] shadow-[5px_5px_0px_2px_#ccc] whitespace-nowrap bg-white w-64 h-96 transition-colors duration-500 ease-in-out hover:bg-violet-100">
@@ -594,15 +594,15 @@
       </section>
 
       <!-- Projects Section -->
-      <section id="projects-section" class="section animate-section sm:mx-4 md:mx-4">
+      <section id="projects-section" class="section animate-section md:mx-4 px-16 sm:px-8 md:px-8 lg:px-0 xl:px-0">
         <div class="flex justify-center">
           <h2 class="text-2xl font-bold mb-4 text-center pb-2">Projects</h2>
         </div>
-        <div id="projects-wrapper" class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-12">
+        <div id="projects-wrapper" class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-12">
 
           <!-- Whitegoods Project -->
           <div
-            class="flex flex-col items-stretch bg-[#fafafa] p-4 sm:shadow-[0px_0px_0px_5px_#ccc,15px_15px_0px_5px_#ccc] md:shadow-[0px_0px_0px_5px_#ccc,15px_15px_0px_5px_#ccc] hover:bg-violet-100 transition-all duration-400 bg-white">
+            class="flex flex-col items-stretch bg-[#fafafa] p-4 shadow-[0px_0px_0px_5px_#ccc,15px_15px_0px_5px_#ccc] hover:bg-violet-100 transition-all duration-400 bg-white">
             <div class="flex flex-col justify-evenly">
               <h3 class="text-xl font-bold mb-2 text-center">
                 <a href="https://github.com/furkanalk/e-commerce-site" target="_blank"
@@ -663,13 +663,13 @@
         </div>
       </section>
       <!-- Links Section -->
-      <section class="section animate-section my-10 w-full">
+      <section class="section animate-section my-10 w-full px-16 sm:px-8 md:px-12 lg:px-0 xl:px-0">
         <div class="flex justify-center">
           <h2 class="text-2xl font-bold mb-4 text-center">Links</h2>
         </div>
         <div class="w-full">
           <ul
-            class="grid grid-cols-3 w-full justify-center mt-4 gap-4 flex flex-col items-stretch bg-[#fafafa] p-4 shadow-[0px_0px_0px_5px_#ccc,15px_15px_0px_5px_#ccc] hover:bg-violet-100 transition-all duration-400 bg-white list-none">
+            class="grid grid-cols-1 sm:grid-cols-3 w-full justify-center mt-4 gap-4 flex flex-col items-stretch bg-[#fafafa] p-4 shadow-[0px_0px_0px_5px_#ccc,15px_15px_0px_5px_#ccc] hover:bg-violet-100 transition-all duration-400 bg-white list-none">
 
             <li class="flex justify-center">
               <a href="mailto:furkanalkilic@outlook.com" class="flex items-center no-underline">
@@ -698,23 +698,6 @@
 
     </main>
   </div>
-  <script>
-    let lastScrollTop = 0;
-    const header = document.getElementById("menu");
-
-    window.addEventListener("scroll", function () {
-      let scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-      if (scrollTop > lastScrollTop) {
-        header.style.transform = "translateY(-100%)";
-      } else {
-        header.style.transform = "translateY(0)";
-        header.style.transition = "transform 0.5s ease-out";
-      }
-
-      lastScrollTop = scrollTop;
-    });
-  </script>
   <script src="js/index.js"></script>
   <script src="js/debug.js"></script>
   <script src="js/logic.js"></script>

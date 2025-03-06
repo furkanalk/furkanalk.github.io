@@ -97,10 +97,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-  
 switchDarkLightMode();
-displaySection("about-me", "about-me-section");
-displaySection("skills", "skills-section");
-displaySection("projects", "projects-section");
-displaySection("links", "links-section");
