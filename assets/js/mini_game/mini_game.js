@@ -80,6 +80,9 @@ function prepareMiniGameUI() {
   currentMissiles = 0;
   currentPlanes = 0;
 
+  score = 0;
+  nextOrbScore = 100;
+  
   //startGameTime();
   startGameTimers();
   isGameLive = false;
@@ -168,6 +171,8 @@ setInterval(() => {
     let currentCycleScore = score - (nextOrbScore - 100);
     if (currentCycleScore < 0) currentCycleScore = 0;
     let orbProgress = (currentCycleScore / 100) * 100;
+    console.log("orbProgress: " + orbProgress)
+    console.log("nextOrbScore: " + nextOrbScore)
     barInner.style.width = orbProgress + '%';
     barInner.style.background = 'purple';
 
