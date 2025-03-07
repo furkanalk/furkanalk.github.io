@@ -1,4 +1,4 @@
-# Purple Wings (Mini Game) Tutorial
+# Purple Wings (Mini Game) Guide
 
 <img src="../assets/images/readme/purple_wings.png" alt="Purple Wings" width="500">
 
@@ -9,7 +9,7 @@
 
 ## Table of Contents
 
-- [Purple Wings (Mini Game) Tutorial](#purple-wings-mini-game-tutorial)
+- [Purple Wings (Mini Game) Guide](#purple-wings-mini-game-guide)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Controls](#controls)
