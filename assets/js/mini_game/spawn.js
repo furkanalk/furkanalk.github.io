@@ -14,7 +14,6 @@ setInterval(()=>{
 setInterval(()=>{
   if(websiteMode)
     createSpecialObject("plane");
-    console.log("spawn oldum, interval")
 },3500);
 
 function startMeteorSpawn(){

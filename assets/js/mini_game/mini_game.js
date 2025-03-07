@@ -44,16 +44,11 @@ function doCountdown(callback) {
 }
 
 function prepareMiniGameUI() {
-  const headerName = document.getElementById('header-name-ldm');
   const menu = document.getElementById('menu');
-  const aboutIntro = document.getElementById('about-me-intro-section');
   const mainContent = document.querySelector('main');
-  const watermarks = document.querySelectorAll('.watermark');
-  if (headerName) headerName.style.display = 'none';
+
   if (menu) menu.style.display = 'none';
-  if (aboutIntro) aboutIntro.style.display = 'none';
   if (mainContent) mainContent.style.display = 'none';
-  watermarks.forEach(w => w.style.display = 'none');
 
   document.getElementById('page-wrapper').style.zIndex = '0';
   isGameMode = true;
@@ -138,17 +133,11 @@ exitGameBtn.addEventListener('click', () => {
   currentLevel = 1;
   levelLabel.style.display = 'none';
 
-  const headerName = document.getElementById('header-name-ldm');
   const menu = document.getElementById('menu');
-  const aboutIntro = document.getElementById('about-me-intro-section');
   const mainContent = document.querySelector('main');
-  const watermarks = document.querySelectorAll('.watermark');
 
-  if (headerName) headerName.style.display = '';
   if (menu) menu.style.display = '';
-  if (aboutIntro) aboutIntro.style.display = '';
   if (mainContent) mainContent.style.display = '';
-  watermarks.forEach(w => w.style.display = '');
 
   startMeteorSpawn();
   document.getElementById('page-wrapper').style.zIndex = '8000';
@@ -171,8 +160,8 @@ setInterval(() => {
     let currentCycleScore = score - (nextOrbScore - 100);
     if (currentCycleScore < 0) currentCycleScore = 0;
     let orbProgress = (currentCycleScore / 100) * 100;
-    console.log("orbProgress: " + orbProgress)
-    console.log("nextOrbScore: " + nextOrbScore)
+    // console.log("orbProgress: " + orbProgress)
+    // console.log("nextOrbScore: " + nextOrbScore)
     barInner.style.width = orbProgress + '%';
     barInner.style.background = 'purple';
 
