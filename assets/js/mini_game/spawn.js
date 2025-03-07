@@ -1,6 +1,7 @@
 let missileSpawnInterval;
 let powerupSpawnInterval;
 let enemyPlaneInterval;
+let meteorSpawnInterval;
 
 setInterval(()=>{
   if(debugMode || document.hidden || isGameLive) return;
@@ -10,6 +11,19 @@ setInterval(()=>{
   createRandomMeteor();
 },300);
 
+setInterval(()=>{
+  if(websiteMode)
+    createSpecialObject("plane");
+    console.log("spawn oldum, interval")
+},3500);
+
+function startMeteorSpawn(){
+  if(websiteMode) {
+    meteorSpawnInterval = setInterval(() => {
+      createRandomMeteor();
+    }, 300);  
+  }
+}
 function startMissileSpawn(){
   if (currentMissiles < 8) {
     missileSpawnInterval = setInterval(() => {
@@ -40,6 +54,9 @@ function startPowerupSpawn(){
     }
   }, 20000);
 }
+function stopMeteorSpawn(){
+  clearInterval(meteorSpawnInterval);
+}
 function stopMissileSpawn(){
   clearInterval(missileSpawnInterval);
 }
@@ -52,8 +69,6 @@ function stopPowerupSpawn(){
 
 function startSpawns() {
   if (!debugMode && isGameMode && !isGameLive && !planeDestroyed && !document.hidden) {
-    console.log("IM HERE INSIDE")
-    console.log(debugMode)
     startMissileSpawn();
     startPowerupSpawn();
     startEnemyPlaneSpawn();
