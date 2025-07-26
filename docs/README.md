@@ -96,13 +96,13 @@ In the game, you control an **airplane** using mouse movements. Your goal is to 
 <img src="../assets/images/readme/powerups.png" alt="Powerups" width="500">
 
 - **Shield:**  
-  Grants a temporary 10-second shield. While active, collisions trigger an explosion effect but do not harm the airplane.
+  Grants a temporary 10-second shield. While active, collisions trigger an explosion effect but do not harm the airplane. Spawn Rate: **%58**
 
 - **Heart (Life):**  
-  Adds an extra life, helping players survive longer.
+  Adds an extra life, helping players survive longer. Spawn Rate: **%12**
 
 - **Flare:**  
-  When collected, flares can be fired using the Space key to clear hazards from the screen.
+  When collected, flares can be fired using the Space key to clear hazards from the screen. Spawn Rate: **%30**
 
   > Power-ups are collected using the collision detection mechanism and managed in `logic.js` and `mini_game.js`.
 
