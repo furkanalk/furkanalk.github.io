@@ -3,6 +3,7 @@ assets/images/mini_game/svg/old/
 
 # Environment variables
 .env
+.env.temp
 
 # Config and log files
 config/
@@ -20,4 +21,7 @@ Thumbs.db
 
 # Temporary files
 *.tmp
+
+# Ignore all log files
 *.log
+logs/*
