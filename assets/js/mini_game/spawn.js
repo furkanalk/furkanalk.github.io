@@ -37,22 +37,26 @@ function startEnemyPlaneSpawn(){
     }, 3000);
   }
 }
-function startPowerupSpawn(){
+function startPowerupSpawn() {
   powerupSpawnInterval = setInterval(() => {
-    let rnd = Math.random();
-    if (rnd < 0.6) {
+    const rnd = Math.random();
+
+    const SPAWN_CHANCES = {
+      powerup: 0.58,
+      heart: 0.70,
+      flare: 1.00
+    };
+
+    if (rnd < SPAWN_CHANCES.powerup) {
       createSpecialObject("powerup");
-    } else if (rnd < 0.7) {
-      if (heartCount < 3) {
-        createSpecialObject("heart");
-      }
+    } else if (rnd < SPAWN_CHANCES.heart) {
+      if (heartCount < 3) createSpecialObject("heart");
     } else {
-      if (flareCount < 3) {
-        createSpecialObject("flare");
-      }
+      if (flareCount < 3) createSpecialObject("flare");
     }
   }, 20000);
 }
+
 function stopMeteorSpawn(){
   clearInterval(meteorSpawnInterval);
 }
