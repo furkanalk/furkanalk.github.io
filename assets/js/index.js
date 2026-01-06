@@ -1,16 +1,25 @@
 let websiteMode = true;
 
-document.querySelectorAll('#menu a').forEach(anchor => {
-  anchor.addEventListener('click', function (event) {
-    event.preventDefault();
-    const targetId = this.getAttribute('href').substring(1);
-    const targetSection = document.getElementById(targetId);
+document.querySelectorAll("#menu a").forEach((anchor) => {
+  anchor.addEventListener("click", function (event) {
+    const href = this.getAttribute("href");
 
-    if (targetSection) {
-      window.scrollTo({
-        top: targetSection.offsetTop - 50,
-        behavior: "smooth"
-      });
+    if (href.startsWith("mailto:")) {
+      return;
+    }
+
+    if (href.startsWith("#")) {
+      event.preventDefault();
+
+      const targetId = href.substring(1);
+      const targetSection = document.getElementById(targetId);
+
+      if (targetSection) {
+        window.scrollTo({
+          top: targetSection.offsetTop - 50,
+          behavior: "smooth",
+        });
+      }
     }
   });
 });
